@@ -1,3 +1,11 @@
+if vim.g.vscode then
+  vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+  vim.o.ignorecase = true
+  vim.o.smartcase = true
+  vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+  return
+end
+
 -- ============================================================
 -- SECTION 1: FOUNDATION
 -- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
