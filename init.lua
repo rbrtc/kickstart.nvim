@@ -717,6 +717,7 @@ do
     basedpyright = {},
     neocmake = {},
     roslyn = {},
+    lemminx = {},
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
