@@ -11,6 +11,7 @@ vim.pack.add {
   'https://github.com/rcarriga/nvim-dap-ui',
   'https://github.com/nvim-neotest/nvim-nio',
   'https://github.com/mason-org/mason.nvim',
+  'https://github.com/jay-babu/mason-nvim-dap.nvim',
 }
 
 -- Basic debugging keymaps, feel free to change to your liking!
@@ -26,26 +27,10 @@ vim.keymap.set('n', '<F7>', function() require('dapui').toggle() end, { desc = '
 local dap = require 'dap'
 local dapui = require 'dapui'
 
-if not dap.adapters['codelldb'] then require('dap').adapters['codelldb'] = {
-  type = 'executable',
-  command = 'codelldb',
-} end
-
 dap.adapters.coreclr = {
   type = 'executable',
   command = 'netcoredbg',
   args = { '--interpreter=vscode' },
-}
-
-dap.configurations.cpp = {
-  {
-    name = 'Launch File',
-    type = 'codelldb',
-    request = 'launch',
-    program = '${command:pickFile}',
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-  },
 }
 
 dap.configurations.cs = {
@@ -57,6 +42,37 @@ dap.configurations.cs = {
   },
 }
 
+require('mason-nvim-dap').setup {
+  -- Makes a best effort to setup the various debuggers with
+  -- reasonable debug configurations
+  automatic_installation = true,
+
+  -- You can provide additional configuration to the handlers,
+  -- see mason-nvim-dap README for more information
+  handlers = {
+    function(config)
+      -- all sources with no handler get passed here
+
+      -- Keep original functionality
+      require('mason-nvim-dap').default_setup(config)
+    end,
+    codelldb = function(config)
+      config.adapters = {
+        type = 'executable',
+        command = 'codelldb',
+        args = {},
+      }
+      require('mason-nvim-dap').default_setup(config)
+    end,
+  },
+
+  -- You'll need to check that you have the required things installed
+  -- online, please don't ask me how to install them :)
+  ensure_installed = {
+    -- Update this to ensure that you have the debuggers for the langs you want
+    'codelldb',
+  },
+}
 -- Dap UI setup
 -- For more information, see |:help nvim-dap-ui|
 ---@diagnostic disable-next-line: missing-fields
