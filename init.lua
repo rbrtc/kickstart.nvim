@@ -86,6 +86,8 @@ do
   -- :BarbarEnable - enables barbar (enabled by default)
   -- :BarbarDisable - very bad command, should never be used
 
+  vim.keymap.set('n', '<leader>gh', '<cmd>LspClangdSwitchSourceHeader<CR>')
+
   -- Set to true if you have a Nerd Font installed and selected in the terminal
   vim.g.have_nerd_font = true
 
@@ -687,9 +689,6 @@ do
   ---@type table<string, vim.lsp.Config>
   local servers = {
     clangd = {
-      keys = {
-        { '<leader>gh', '<cmd>LspClangdSwitchSourceHeader<cr>', desc = 'Switch Source/Header (C/C++)' },
-      },
       root_markers = {
         'compile_commands.json',
         'compile_flags.txt',
