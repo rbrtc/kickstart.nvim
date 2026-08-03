@@ -723,6 +723,7 @@ do
     neocmake = {},
     roslyn = {},
     lemminx = {},
+    qmlls = {},
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
@@ -828,6 +829,7 @@ do
         lua = true,
         python = true,
         cpp = true,
+        qml = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
