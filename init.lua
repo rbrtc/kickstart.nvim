@@ -724,6 +724,7 @@ do
     roslyn = {},
     lemminx = {},
     qmlls = {},
+    jdtls = {},
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
